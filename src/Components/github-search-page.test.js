@@ -18,4 +18,9 @@ describe('when the GithubSearcis mounted', () => {
 
         expect(screen.getByRole('button', { name: /search/i })).toBeInTheDocument()
     })
+
+    it('show the initial state message “Please provide a search option and click in the search button”', () => {
+
+        expect(screen.getByText(/please provide a search option and click in the search button/i)).toBeInTheDocument()
+    })
 })
