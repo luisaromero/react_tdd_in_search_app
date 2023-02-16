@@ -5,10 +5,13 @@ import { Typography, TextField, Button, Container, Grid, Box } from '@mui/materi
 
 export const GithubSearchPage = () => {
     const [isSearching, setIsSearching] = useState(false);
+    const [isSearchApplied, setIsSearchApplied] = useState(false);
+
 
     const hanldeClick = async () => {
         setIsSearching(true)
         await Promise.resolve()
+        setIsSearchApplied(true)
         setIsSearching(false)
 
     }
@@ -24,9 +27,10 @@ export const GithubSearchPage = () => {
                     <Button fullWidth disabled={isSearching} onClick={hanldeClick} variant="contained" color="primary">Search</Button>
                 </Grid>
             </Grid>
-            <Box display="flex" alignItems={'center'} justifyContent="center" height={400}>
-                <Typography>Please provide a search option and click in the search button</Typography>
-            </Box>
+            {isSearchApplied ? <table /> : (
+                <Box display="flex" alignItems={'center'} justifyContent="center" height={400}>
+                    <Typography>Please provide a search option and click in the search button</Typography>
+                </Box>)}
         </Container >
     )
 }
