@@ -41,7 +41,6 @@ describe('when the developer does a search', () => {
         fireEvent.click(btnSearch)
         await waitFor(() =>
             expect(screen.queryByText(/please provide a search option and click in the search button/i)).not.toBeInTheDocument())
-
-
+        expect(screen.getByRole('table')).toBeInTheDocument()
     })
 })
