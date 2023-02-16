@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { GithubSearchPage } from './github-search-page';
 
 beforeEach(() => render(<GithubSearchPage />))
@@ -36,11 +36,21 @@ describe('when the developer does a search', () => {
         await waitFor(() => expect(btnSearch).not.toBeDisabled())
 
     })
+
     it('The The data should be displayed as a sticky table', async () => {
         const btnSearch = screen.getByRole('button', { name: /search/i })
         fireEvent.click(btnSearch)
         await waitFor(() =>
             expect(screen.queryByText(/please provide a search option and click in the search button/i)).not.toBeInTheDocument())
         expect(screen.getByRole('table')).toBeInTheDocument()
+    })
+
+    it('The table headers must be contain Repository, stars, forks, open issues and updated at', async () => {
+        const btnSearch = screen.getByRole('button', { name: /search/i })
+        fireEvent.click(btnSearch)
+        const table = await screen.findByRole('table')
+
+        const TableHeaders = within(table).getAllByRole('columnheader')
+
     })
 })
