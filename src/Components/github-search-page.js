@@ -28,6 +28,16 @@ export const GithubSearchPage = () => {
                         <th>updated at</th>
                     </tr>
                 </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+
+                    </tr>
+                </tbody>
             </table>
             : (
                 <Box display="flex" alignItems={'center'} justifyContent="center" height={400}>

@@ -63,4 +63,26 @@ describe('when the developer does a search', () => {
 
 
     })
+
+    it('Each table result must contain: owner avatar image, name, stars, updated at, forks, open issues.', async () => {
+        fireEventSearch()
+        const table = await screen.findByRole('table')
+
+        const TableCells = within(table).getAllByRole('cell')
+
+        expect(TableCells).toHaveLength(5)
+
+        const [repository, stars, forks, openIssues, updatedAt] = TableCells
+
+
+        expect(repository).toHaveTextContent(/1/i)
+        expect(stars).toHaveTextContent(/2/i)
+        expect(forks).toHaveTextContent(/3/i)
+        expect(openIssues).toHaveTextContent(/4/i)
+        expect(updatedAt).toHaveTextContent(/5/i)
+
+
+
+
+    })
 })
