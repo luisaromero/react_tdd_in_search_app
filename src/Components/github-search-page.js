@@ -16,6 +16,24 @@ export const GithubSearchPage = () => {
 
     }
 
+    const renderContent = () =>
+        isSearchApplied ?
+            <table>
+                <thead>
+                    <tr>
+                        <th>Repository</th>
+                        <th>stars</th>
+                        <th>forks</th>
+                        <th>open issues</th>
+                        <th>updated at</th>
+                    </tr>
+                </thead>
+            </table>
+            : (
+                <Box display="flex" alignItems={'center'} justifyContent="center" height={400}>
+                    <Typography>Please provide a search option and click in the search button</Typography>
+                </Box>)
+
     return (
         <Container>
             <Typography component="h1" variant="h3">github repositores list</Typography>
@@ -27,22 +45,7 @@ export const GithubSearchPage = () => {
                     <Button fullWidth disabled={isSearching} onClick={hanldeClick} variant="contained" color="primary">Search</Button>
                 </Grid>
             </Grid>
-            {isSearchApplied ?
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Repository</th>
-                            <th>stars</th>
-                            <th>forks</th>
-                            <th>open issues</th>
-                            <th>updated at</th>
-                        </tr>
-                    </thead>
-                </table>
-                : (
-                    <Box display="flex" alignItems={'center'} justifyContent="center" height={400}>
-                        <Typography>Please provide a search option and click in the search button</Typography>
-                    </Box>)}
+            {renderContent()}
         </Container >
     )
 }
