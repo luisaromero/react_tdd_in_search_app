@@ -64,22 +64,28 @@ describe('when the developer does a search', () => {
 
     })
 
-    it('Each table result must contain: owner avatar image, name, stars, updated at, forks, open issues.', async () => {
+    it(`Each table result must contain: owner avatar image, name, stars, updated at, forks, open issues.
+    It should have a link that opens in a new tab the github repository selected.`, async () => {
         fireEventSearch()
         const table = await screen.findByRole('table')
 
         const TableCells = within(table).getAllByRole('cell')
+
+        expect(within(TableCells[0]).getByRole('img', { name: "test" }))
+
 
         expect(TableCells).toHaveLength(5)
 
         const [repository, stars, forks, openIssues, updatedAt] = TableCells
 
 
-        expect(repository).toHaveTextContent(/1/i)
+        expect(repository).toHaveTextContent(/test/i)
         expect(stars).toHaveTextContent(/2/i)
         expect(forks).toHaveTextContent(/3/i)
         expect(openIssues).toHaveTextContent(/4/i)
         expect(updatedAt).toHaveTextContent(/5/i)
+
+        expect(within(table).getByText(/test/i).closest('a')).toHaveAttribute('href', 'http://localhost:3000/test')
 
 
 

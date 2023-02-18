@@ -30,7 +30,9 @@ export const GithubSearchPage = () => {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>1</td>
+                        <td>
+                            <img alt="test" src="" />
+                            <a href="http://localhost:3000/test">test</a></td>
                         <td>2</td>
                         <td>3</td>
                         <td>4</td>
