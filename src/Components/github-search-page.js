@@ -5,6 +5,7 @@ import {
 } from '@mui/material'; { }
 
 
+
 export const GithubSearchPage = () => {
     const [isSearching, setIsSearching] = useState(false);
     const [isSearchApplied, setIsSearchApplied] = useState(false);
