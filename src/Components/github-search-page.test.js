@@ -2,6 +2,7 @@ import React from 'react';
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { GithubSearchPage } from './github-search-page';
 
+
 beforeEach(() => render(<GithubSearchPage />))
 
 
@@ -71,13 +72,13 @@ describe('when the developer does a search', () => {
 
         const TableCells = within(table).getAllByRole('cell')
 
-        expect(within(TableCells[0]).getByRole('img', { name: "test" }))
 
 
         expect(TableCells).toHaveLength(5)
 
         const [repository, stars, forks, openIssues, updatedAt] = TableCells
 
+        expect(within(repository).getByRole('img', { name: "test" }))
 
         expect(repository).toHaveTextContent(/test/i)
         expect(stars).toHaveTextContent(/2/i)
