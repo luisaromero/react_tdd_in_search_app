@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-
+import { Content } from './content/index';
 import {
-    Typography, TextField, Button, Container, Grid, Box,
-    Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Avatar,
-    Link
+    Typography, TextField, Button, Container, Grid, Box
 } from '@mui/material'; { }
 
 
@@ -20,41 +18,14 @@ export const GithubSearchPage = () => {
 
     }
 
-    const renderContent = () =>
-        isSearchApplied ?
-            <TableContainer>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Repository</TableCell>
-                            <TableCell>stars</TableCell>
-                            <TableCell>forks</TableCell>
-                            <TableCell>open issues</TableCell>
-                            <TableCell>updated at</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        <TableRow>
-                            <TableCell>
-                                <Avatar alt="test" src="./logo192.png" />
-                                <Link href="http://localhost:3000/test">test</Link></TableCell>
-                            <TableCell>2</TableCell>
-                            <TableCell>3</TableCell>
-                            <TableCell>4</TableCell>
-                            <TableCell>5</TableCell>
 
-                        </TableRow>
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            : (
-                <Box display="flex" alignItems={'center'} justifyContent="center" height={400}>
-                    <Typography>Please provide a search option and click in the search button</Typography>
-                </Box>)
 
     return (
         <Container>
-            <Typography component="h1" variant="h3">github repositores list</Typography>
+            <Box my={2}>
+                <Typography component="h1" variant="h3">github repositores list</Typography>
+            </Box>
+
             <Grid container spacing={2} justify="space-between">
                 <Grid item md={6} xs={12}>
                     <TextField fullWidth label="filter by" id="filterBy" />
@@ -63,7 +34,10 @@ export const GithubSearchPage = () => {
                     <Button fullWidth disabled={isSearching} onClick={hanldeClick} variant="contained" color="primary">Search</Button>
                 </Grid>
             </Grid>
-            {renderContent()}
+            <Box my={4}>
+                <Content isSearchApplied={isSearchApplied} />
+            </Box>
+
         </Container >
     )
 }
