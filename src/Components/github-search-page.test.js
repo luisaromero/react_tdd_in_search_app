@@ -6,7 +6,7 @@ import { GithubSearchPage } from './github-search-page';
 beforeEach(() => render(<GithubSearchPage />))
 
 
-describe('when the GithubSearcis mounted', () => {
+describe('when the GithubSearch is mounted', () => {
     it('must display the title', () => {
 
         expect(screen.getByRole('heading', { name: /github repositores list/i })).toBeInTheDocument()
@@ -122,6 +122,25 @@ describe('when the developer does a search', () => {
         expect(option30).toHaveTextContent(30)
         expect(option50).toHaveTextContent(50)
         expect(option100).toHaveTextContent(100)
+
+
+    })
+
+    it('must exist the Next and previous pagination buttons', async () => {
+        fireEventSearch()
+
+        await screen.findByRole('table')
+
+        //previous page and next page are in material ui for default
+
+        const previousPage = screen.getByRole('button', { name: /previous page/i })
+
+        expect(previousPage).toBeInTheDocument()
+        expect(screen.getByRole('button', { name: /next page/i })).toBeInTheDocument()
+
+        //if i am in the page 1 , the previous page will be disabled
+
+        expect(previousPage).toBeDisabled()
 
 
     })
