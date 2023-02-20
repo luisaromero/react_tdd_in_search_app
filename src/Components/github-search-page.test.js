@@ -5,21 +5,33 @@ import { fireEvent, render, screen, waitFor, within } from '@testing-library/rea
 import { GithubSearchPage } from './github-search-page';
 
 
+const fakeRepo = {
+    name: 'django-rest-framework-reactive',
+    id: '56757919',
+    owner: {
+        avatar_url: 'https://avatars0.githubusercontent.com/u/2120224?v=4',
+    },
+    html_url: 'https://github.com/genialis/django-rest-framework-reactive',
+    updated_at: '2020-10-24',
+    stargazers_count: 58,
+    forks_count: 9,
+    open_issues_count: 0,
+}
+
+
 const server = setupServer(
     // Describe network behavior with request handlers.
     // Tip: move the handlers into their own module and
     // import it across your browser and Node.js setups!
-    rest.get('/posts', (req, res, ctx) => {
+    rest.get('/search/repositories', (req, res, ctx) => {
         return res(
+            ctx.status(200),
             ctx.json([
                 {
-                    id: 'f8dd058f-9006-4174-8d49-e3086bc39c21',
-                    title: `Avoid Nesting When You're Testing`,
-                },
-                {
-                    id: '8ac96078-6434-4959-80ed-cc834e7fef61',
-                    title: `How I Built A Modern Website In 2021`,
-                },
+                    total_count: 8643,
+                    inconmplete_results: false,
+                    items: [fakeRepo]
+                }
             ]),
         )
     }),
