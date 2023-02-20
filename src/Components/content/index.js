@@ -9,7 +9,7 @@ const tableHeaders = ['Repository', 'stars', 'forks', 'open issues', 'updated at
 
 
 
-export const Content = ({ isSearchApplied }) =>
+export const Content = ({ isSearchApplied, repostList }) =>
     isSearchApplied ?
         <>
             <TableContainer>
@@ -23,16 +23,19 @@ export const Content = ({ isSearchApplied }) =>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <TableRow>
-                            <TableCell>
-                                <Avatar alt="test" src="./logo192.png" />
-                                <Link href="http://localhost:3000/test">test</Link></TableCell>
-                            <TableCell>2</TableCell>
-                            <TableCell>3</TableCell>
-                            <TableCell>4</TableCell>
-                            <TableCell>5</TableCell>
+                        {repostList.map(({ name }) => (
+                            <TableRow>
+                                <TableCell>
+                                    <Avatar alt="test" src="./logo192.png" />
+                                    <Link href="http://localhost:3000/test">{name}</Link></TableCell>
+                                <TableCell>2</TableCell>
+                                <TableCell>3</TableCell>
+                                <TableCell>4</TableCell>
+                                <TableCell>5</TableCell>
 
-                        </TableRow>
+                            </TableRow>
+                        ))}
+
                     </TableBody>
                 </Table>
             </TableContainer>
@@ -53,4 +56,6 @@ export const Content = ({ isSearchApplied }) =>
 
 export default Content
 
-Content.propTypes = { isSearchApplied: PropTypes.bool.isRequired }
+Content.propTypes = {
+    isSearchApplied: PropTypes.bool.isRequired,
+}

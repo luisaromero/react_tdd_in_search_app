@@ -9,11 +9,15 @@ import {
 export const GithubSearchPage = () => {
     const [isSearching, setIsSearching] = useState(false);
     const [isSearchApplied, setIsSearchApplied] = useState(false);
+    const [repostList, setRepostList] = useState([])
 
 
     const hanldeClick = async () => {
         setIsSearching(true)
-        await Promise.resolve()
+        const response = await fetch('/search/repositories?q=react+languaje:python&page=26&per_page=50')
+        // para parsear el reponse del json a un objeto de javascript , retorna una promesa por eso se coloca el await
+        const data = await response.json()
+        setRepostList(data.items)
         setIsSearchApplied(true)
         setIsSearching(false)
 
@@ -36,7 +40,7 @@ export const GithubSearchPage = () => {
                 </Grid>
             </Grid>
             <Box my={4}>
-                <Content isSearchApplied={isSearchApplied} />
+                <Content isSearchApplied={isSearchApplied} repostList={repostList} />
             </Box>
 
         </Container >

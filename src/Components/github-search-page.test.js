@@ -26,13 +26,13 @@ const server = setupServer(
     rest.get('/search/repositories', (req, res, ctx) => {
         return res(
             ctx.status(200),
-            ctx.json([
+            ctx.json(
                 {
                     total_count: 8643,
                     inconmplete_results: false,
                     items: [fakeRepo]
                 }
-            ]),
+            ),
         )
     }),
 )
@@ -125,13 +125,13 @@ describe('when the developer does a search', () => {
 
         expect(within(repository).getByRole('img', { name: "test" }))
 
-        expect(repository).toHaveTextContent(/test/i)
+        expect(repository).toHaveTextContent(fakeRepo.name)
         expect(stars).toHaveTextContent(/2/i)
         expect(forks).toHaveTextContent(/3/i)
         expect(openIssues).toHaveTextContent(/4/i)
         expect(updatedAt).toHaveTextContent(/5/i)
 
-        expect(within(table).getByText(/test/i).closest('a')).toHaveAttribute('href', 'http://localhost:3000/test')
+        expect(within(table).getByText(fakeRepo.name).closest('a')).toHaveAttribute('href', 'http://localhost:3000/test')
 
 
 
