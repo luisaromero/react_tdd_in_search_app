@@ -123,15 +123,19 @@ describe('when the developer does a search', () => {
 
         const [repository, stars, forks, openIssues, updatedAt] = TableCells
 
-        expect(within(repository).getByRole('img', { name: "test" }))
+        const avatarImg = within(repository).getByRole('img', { name: fakeRepo.name })
+
+        expect(avatarImg).toBeInTheDocument()
+
+        expect(avatarImg).toHaveAttribute('src', fakeRepo.owner.avatar_url)
 
         expect(repository).toHaveTextContent(fakeRepo.name)
-        expect(stars).toHaveTextContent(/2/i)
-        expect(forks).toHaveTextContent(/3/i)
-        expect(openIssues).toHaveTextContent(/4/i)
-        expect(updatedAt).toHaveTextContent(/5/i)
+        expect(stars).toHaveTextContent(fakeRepo.stargazers_count)
+        expect(forks).toHaveTextContent(fakeRepo.forks_count)
+        expect(openIssues).toHaveTextContent(fakeRepo.open_issues_count)
+        expect(updatedAt).toHaveTextContent(fakeRepo.updated_at)
 
-        expect(within(table).getByText(fakeRepo.name).closest('a')).toHaveAttribute('href', 'http://localhost:3000/test')
+        expect(within(table).getByText(fakeRepo.name).closest('a')).toHaveAttribute('href', fakeRepo.html_url)
 
 
 

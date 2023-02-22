@@ -23,15 +23,23 @@ export const Content = ({ isSearchApplied, repostList }) =>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {repostList.map(({ name }) => (
-                            <TableRow>
+                        {repostList.map(({ name,
+                            id,
+                            stargazers_count: stargazersCount,
+                            forks_count: forksCount,
+                            open_issues_count: openIssuesCount,
+                            updated_at: updatedAt,
+                            html_url: htmlUrl,
+                            owner: { avatar_url: avatarUrl }
+                        }) => (
+                            <TableRow key={id}>
                                 <TableCell>
-                                    <Avatar alt="test" src="./logo192.png" />
-                                    <Link href="http://localhost:3000/test">{name}</Link></TableCell>
-                                <TableCell>2</TableCell>
-                                <TableCell>3</TableCell>
-                                <TableCell>4</TableCell>
-                                <TableCell>5</TableCell>
+                                    <Avatar alt={name} src={avatarUrl} />
+                                    <Link href={htmlUrl}>{name}</Link></TableCell>
+                                <TableCell>{stargazersCount}</TableCell>
+                                <TableCell>{forksCount}</TableCell>
+                                <TableCell>{openIssuesCount}</TableCell>
+                                <TableCell>{updatedAt}</TableCell>
 
                             </TableRow>
                         ))}
