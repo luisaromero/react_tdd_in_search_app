@@ -201,7 +201,7 @@ describe('when the developer does a search', () => {
 })
 
 describe('when the developer does a search without results', () => {
-    it('must show a empty state message', async () => {
+    it('must show a empty state message : you search has no results', async () => {
         server.use(rest.get('/search/repositories', (req, res, ctx) =>
             res(
                 ctx.status(200),
@@ -219,6 +219,6 @@ describe('when the developer does a search without results', () => {
 
         await waitFor(() => expect(screen.getByText(/you search has no results/i)).toBeInTheDocument())
 
-        expect(screen.getByRole('table')).not.toBeInTheDocument()
+        expect(screen.queryByRole('table')).not.toBeInTheDocument()
     })
 })
