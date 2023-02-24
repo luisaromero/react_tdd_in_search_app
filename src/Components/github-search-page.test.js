@@ -5,18 +5,32 @@ import { fireEvent, render, screen, waitFor, within } from '@testing-library/rea
 import { GithubSearchPage } from './github-search-page';
 
 
-const fakeRepo = {
-    name: 'django-rest-framework-reactive',
-    id: '56757919',
-    owner: {
-        avatar_url: 'https://avatars0.githubusercontent.com/u/2120224?v=4',
-    },
-    html_url: 'https://github.com/genialis/django-rest-framework-reactive',
-    updated_at: '2020-10-24',
-    stargazers_count: 58,
-    forks_count: 9,
-    open_issues_count: 0,
-}
+const makeFakeResponse = ({ totalCount = 0 }) => ({
+    total_count: totalCount,
+    items: []
+})
+
+const makeFakeRepo = () => (
+    {
+        name: 'django-rest-framework-reactive',
+        id: '56757919',
+        owner: {
+            avatar_url: 'https://avatars0.githubusercontent.com/u/2120224?v=4',
+        },
+        html_url: 'https://github.com/genialis/django-rest-framework-reactive',
+        updated_at: '2020-10-24',
+        stargazers_count: 58,
+        forks_count: 9,
+        open_issues_count: 0,
+    }
+)
+
+const fakeResponse = makeFakeResponse({ totalCount: 1 })
+
+const fakeRepo = makeFakeRepo()
+
+fakeResponse.items = [makeFakeRepo()]
+
 
 
 const server = setupServer(
@@ -26,13 +40,7 @@ const server = setupServer(
     rest.get('/search/repositories', (req, res, ctx) => {
         return res(
             ctx.status(200),
-            ctx.json(
-                {
-                    total_count: 8643,
-                    inconmplete_results: false,
-                    items: [fakeRepo]
-                }
-            ),
+            ctx.json(fakeResponse),
         )
     }),
 )
