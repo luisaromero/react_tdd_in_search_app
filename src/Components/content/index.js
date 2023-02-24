@@ -10,6 +10,13 @@ const tableHeaders = ['Repository', 'stars', 'forks', 'open issues', 'updated at
 
 
 export const Content = ({ isSearchApplied, repostList }) => {
+
+    const renderWithBox = (cb) => (
+        <Box display="flex" alignItems={'center'} justifyContent="center" height={400}>
+            {cb}
+        </Box>
+    )
+
     if (isSearchApplied && !!repostList.length) {
         return (
             <>
@@ -61,16 +68,10 @@ export const Content = ({ isSearchApplied, repostList }) => {
         )
     }
     if (isSearchApplied && !repostList.length) {
-        return (
-            <Box display="flex" alignItems={'center'} justifyContent="center" height={400}>
-                <Typography>You search has no results</Typography>
-            </Box>
-        )
+        return renderWithBox(<Typography>You search has no results</Typography>)
+
     }
-    return (
-        <Box display="flex" alignItems={'center'} justifyContent="center" height={400}>
-            <Typography>Please provide a search option and click in the search button</Typography>
-        </Box>
+    return renderWithBox(<Typography>Please provide a search option and click in the search button</Typography>
     )
 }
 
