@@ -3,27 +3,9 @@ import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { GithubSearchPage } from './github-search-page';
+import { makeFakeResponse, makeFakeRepo } from '../__fixtures__/respos';
+import { OK_STATUS } from '../consts';
 
-
-const makeFakeResponse = ({ totalCount = 0 }) => ({
-    total_count: totalCount,
-    items: []
-})
-
-const makeFakeRepo = () => (
-    {
-        name: 'django-rest-framework-reactive',
-        id: '56757919',
-        owner: {
-            avatar_url: 'https://avatars0.githubusercontent.com/u/2120224?v=4',
-        },
-        html_url: 'https://github.com/genialis/django-rest-framework-reactive',
-        updated_at: '2020-10-24',
-        stargazers_count: 58,
-        forks_count: 9,
-        open_issues_count: 0,
-    }
-)
 
 const fakeResponse = makeFakeResponse({ totalCount: 1 })
 
@@ -39,7 +21,7 @@ const server = setupServer(
     // import it across your browser and Node.js setups!
     rest.get('/search/repositories', (req, res, ctx) => {
         return res(
-            ctx.status(200),
+            ctx.status(OK_STATUS),
             ctx.json(fakeResponse),
         )
     }),
@@ -212,13 +194,8 @@ describe('when the developer does a search without results', () => {
     it('must show a empty state message : you search has no results', async () => {
         server.use(rest.get('/search/repositories', (req, res, ctx) =>
             res(
-                ctx.status(200),
-                ctx.json(
-                    {
-                        total_count: 0,
-                        inconmplete_results: false,
-                        items: []
-                    }
+                ctx.status(OK_STATUS),
+                ctx.json(makeFakeResponse({})
                 ),
             )
         ))
