@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Content } from './content/index';
+import { getRepos } from '../services';
+
 import {
     Typography, TextField, Button, Container, Grid, Box
 } from '@mui/material'; { }
-
 
 
 export const GithubSearchPage = () => {
@@ -14,7 +15,7 @@ export const GithubSearchPage = () => {
 
     const hanldeClick = async () => {
         setIsSearching(true)
-        const response = await fetch('/search/repositories?q=react+languaje:python&page=26&per_page=50')
+        const response = await getRepos()
         // para parsear el reponse del json a un objeto de javascript , retorna una promesa por eso se coloca el await
         const data = await response.json()
         setRepostList(data.items)
