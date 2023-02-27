@@ -207,3 +207,9 @@ describe('when the developer does a search without results', () => {
         expect(screen.queryByRole('table')).not.toBeInTheDocument()
     })
 })
+
+
+describe('when the developer types on filter by and does a search', () => {
+    it('must display the ralated repos', async () => {
+    })
+})

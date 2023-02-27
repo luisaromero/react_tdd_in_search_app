@@ -11,6 +11,7 @@ export const GithubSearchPage = () => {
     const [isSearching, setIsSearching] = useState(false);
     const [isSearchApplied, setIsSearchApplied] = useState(false);
     const [repostList, setRepostList] = useState([])
+    const [searchBy, setSearchBy] = useState([])
 
 
     const hanldeClick = async () => {
