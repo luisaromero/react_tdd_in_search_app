@@ -1,4 +1,4 @@
-export const makeFakeResponse = ({ totalCount = 0 }) => ({
+export const makeFakeResponse = ({ totalCount = 0 } = {}) => ({
     total_count: totalCount,
     items: []
 })
@@ -23,6 +23,6 @@ const resposData = ['go', 'freeCodeCamp', 'laravel', 'Python', 'Java']
 
 const reposList = resposData.map(name => makeFakeRepo({ name, id: name }))
 
+export const getReposByList = ({ name }) => reposList.filter(repo => repo.name === name)
 
-
-export default { makeFakeResponse, makeFakeRepo }
+export default { makeFakeResponse, makeFakeRepo, getReposByList }

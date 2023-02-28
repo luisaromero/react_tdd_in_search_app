@@ -22,10 +22,9 @@ export const GithubSearchPage = () => {
         setRepostList(data.items)
         setIsSearchApplied(true)
         setIsSearching(false)
-
     }
 
-
+    const handleChange = ({ target: { value } }) => setSearchBy(value)
 
     return (
         <Container>
@@ -35,7 +34,7 @@ export const GithubSearchPage = () => {
 
             <Grid container spacing={2} justify="space-between">
                 <Grid item md={6} xs={12}>
-                    <TextField fullWidth label="filter by" id="filterBy" />
+                    <TextField fullWidth label="filter by" id="filterBy" onChange={handleChange} />
                 </Grid>
                 <Grid item xs={12} md={3}>
                     <Button fullWidth disabled={isSearching} onClick={hanldeClick} variant="contained" color="primary">Search</Button>

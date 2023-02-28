@@ -3,7 +3,7 @@ import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { GithubSearchPage } from './github-search-page';
-import { makeFakeResponse, makeFakeRepo } from '../__fixtures__/respos';
+import { makeFakeResponse, makeFakeRepo, getReposByList } from '../__fixtures__/respos';
 import { OK_STATUS } from '../consts';
 
 
@@ -211,5 +211,20 @@ describe('when the developer does a search without results', () => {
 
 describe('when the developer types on filter by and does a search', () => {
     it('must display the ralated repos', async () => {
+        const internalFakeResponse = makeFakeResponse()
+        //setup mock server
+
+        server.use(rest.get('/search/repositories', (req, res, ctx) =>
+            res(
+                ctx.status(OK_STATUS),
+                ctx.json(
+
+                    { ...internalFakeResponse, item: getReposByList({ name: req.url.searchParams.get('q') }) }
+
+                )
+            ),
+        ))
+
+
     })
 })
