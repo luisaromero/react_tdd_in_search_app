@@ -11,12 +11,12 @@ export const GithubSearchPage = () => {
     const [isSearching, setIsSearching] = useState(false);
     const [isSearchApplied, setIsSearchApplied] = useState(false);
     const [repostList, setRepostList] = useState([])
-    const [searchBy, setSearchBy] = useState([])
+    const [searchBy, setSearchBy] = useState('')
 
 
     const hanldeClick = async () => {
         setIsSearching(true)
-        const response = await getRepos()
+        const response = await getRepos({ q: searchBy })
         // para parsear el reponse del json a un objeto de javascript , retorna una promesa por eso se coloca el await
         const data = await response.json()
         setRepostList(data.items)

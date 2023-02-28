@@ -214,17 +214,25 @@ describe('when the developer types on filter by and does a search', () => {
         const internalFakeResponse = makeFakeResponse()
         //setup mock server
 
-        server.use(rest.get('/search/repositories', (req, res, ctx) =>
-            res(
-                ctx.status(OK_STATUS),
-                ctx.json(
+        server.use(
+            rest.get('/search/repositories', (req, res, ctx) =>
+                res(
+                    ctx.status(OK_STATUS),
 
-                    { ...internalFakeResponse, item: getReposByList({ name: req.url.searchParams.get('q') }) }
-
-                )
+                    ctx.json({
+                        ...internalFakeResponse,
+                        items: getReposByList({ name: req.url.searchParams.get('q') })
+                    }),
+                ),
             ),
-        ))
+        )
 
+        // type a word in a input filter
+        fireEvent.change(screen.getByLabelText(/filter by/i), { target: { value: 'laravel' } })
+        // click on search
+        fireEventSearch()
+
+        expect(await screen.findByRole('table')).toBeInTheDocument()
 
     })
 })
