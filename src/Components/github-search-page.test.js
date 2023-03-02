@@ -240,6 +240,7 @@ describe('when the developer types on filter by and does a search', () => {
         const TableCells = within(table).getAllByRole('cell')
 
         const [repository] = TableCells
+        //in cell repository the name must should the type of languaje search in this case laravel
 
         expect(repository).toHaveTextContent(expectedRepo.name)
 
