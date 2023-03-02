@@ -248,3 +248,14 @@ describe('when the developer types on filter by and does a search', () => {
 
     })
 })
+
+describe('when the developer does a search and selects 50 rows per page', () => {
+    it('must fetch a new search and display 50 rows results on the table', async () => {
+        //config mock server response
+        //click search 
+        // expect 30 per page
+        // select 50 per page
+        // expect 50 rows length
+
+    })
+})       
