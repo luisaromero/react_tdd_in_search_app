@@ -212,6 +212,7 @@ describe('when the developer does a search without results', () => {
 describe('when the developer types on filter by and does a search', () => {
     it('must display the ralated repos', async () => {
         const internalFakeResponse = makeFakeResponse()
+        const expectedRepo = getReposByList({ name: 'laravel' })[0]
         //setup mock server
 
         server.use(
@@ -232,7 +233,17 @@ describe('when the developer types on filter by and does a search', () => {
         // click on search
         fireEventSearch()
 
-        expect(await screen.findByRole('table')).toBeInTheDocument()
+        const table = await screen.findByRole('table')
+
+        expect(table).toBeInTheDocument()
+
+        const TableCells = within(table).getAllByRole('cell')
+
+        const [repository] = TableCells
+
+        expect(repository).toHaveTextContent(expectedRepo.name)
+
+
 
     })
 })
