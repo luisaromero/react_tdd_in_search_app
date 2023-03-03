@@ -9,13 +9,15 @@ const tableHeaders = ['Repository', 'stars', 'forks', 'open issues', 'updated at
 
 
 
-export const Content = ({ isSearchApplied, repostList }) => {
+export const Content = ({ isSearchApplied, repostList, rowsPerPage, setRowsPerPage }) => {
 
     const renderWithBox = (cb) => (
         <Box display="flex" alignItems={'center'} justifyContent="center" height={400}>
             {cb}
         </Box>
     )
+
+    const handleChangeRowsPerPage = ({ target: { value } }) => setRowsPerPage(value)
 
     if (isSearchApplied && !!repostList.length) {
         return (
@@ -59,10 +61,10 @@ export const Content = ({ isSearchApplied, repostList }) => {
                     rowsPerPageOptions={[30, 50, 100]}
                     component="div"
                     count={1}
-                    rowsPerPage={30}
+                    rowsPerPage={rowsPerPage}
                     page={0}
                     onPageChange={() => { }}
-                    onRowsPerPageChange={() => { }}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </>
         )
@@ -79,4 +81,6 @@ export default Content
 
 Content.propTypes = {
     isSearchApplied: PropTypes.bool.isRequired,
+    rowsPerPage: PropTypes.number.isRequired,
+    setRowsPerPage: PropTypes.func.isRequired
 }
