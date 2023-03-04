@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Content } from './content/index';
 import { getRepos } from '../services';
 
@@ -27,6 +27,8 @@ export const GithubSearchPage = () => {
     }
 
     const handleChange = ({ target: { value } }) => setSearchBy(value)
+
+    // useEffect()
 
     return (
         <Container>
