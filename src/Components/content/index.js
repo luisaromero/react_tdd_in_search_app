@@ -82,5 +82,6 @@ export default Content
 Content.propTypes = {
     isSearchApplied: PropTypes.bool.isRequired,
     rowsPerPage: PropTypes.number.isRequired,
-    setRowsPerPage: PropTypes.func.isRequired
+    setRowsPerPage: PropTypes.func.isRequired,
+    repostList: PropTypes.arrayOf(PropTypes.object),
 }

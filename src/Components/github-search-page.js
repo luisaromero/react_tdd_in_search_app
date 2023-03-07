@@ -14,9 +14,10 @@ export const GithubSearchPage = () => {
     const [searchBy, setSearchBy] = useState('')
     const [rowsPerPage, setRowsPerPage] = useState(30)
 
+    const didMount = useRef(false)
 
+    const handleSearch = useCallback(async () => {
 
-    const hanldeClick = async () => {
         setIsSearching(true)
         const response = await getRepos({ q: searchBy, rowsPerPage })
         // para parsear el reponse del json a un objeto de javascript , retorna una promesa por eso se coloca el await
@@ -24,11 +25,17 @@ export const GithubSearchPage = () => {
         setRepostList(data.items)
         setIsSearchApplied(true)
         setIsSearching(false)
-    }
+    }, [rowsPerPage, searchBy])
 
     const handleChange = ({ target: { value } }) => setSearchBy(value)
 
-    // useEffect()
+    useEffect(() => {
+        if (!didMount.current) {
+            didMount.current = true
+            return
+        }
+        handleSearch()
+    }, [handleSearch])
 
     return (
         <Container>
@@ -41,7 +48,7 @@ export const GithubSearchPage = () => {
                     <TextField fullWidth label="filter by" id="filterBy" onChange={handleChange} />
                 </Grid>
                 <Grid item xs={12} md={3}>
-                    <Button fullWidth disabled={isSearching} onClick={hanldeClick} variant="contained" color="primary">Search</Button>
+                    <Button fullWidth disabled={isSearching} onClick={handleSearch} variant="contained" color="primary">Search</Button>
                 </Grid>
             </Grid>
             <Box my={4}>
