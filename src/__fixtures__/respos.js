@@ -31,7 +31,6 @@ export const getReposByList = ({ name }) => reposList.filter(repo => repo.name =
 //repos30Paginated array of arrays , in each array is a page , has 3 pages with 30 objects
 
 export const getRepostPerPage = ({ currentPage, perPage }) => {
-    console.log({ currentPage, perPage })
     return perPage === 30 ? repos30Paginated[currentPage] : repos50Paginated[currentPage]
 }
 

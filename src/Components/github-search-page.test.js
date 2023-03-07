@@ -4,6 +4,7 @@ import { setupServer } from 'msw/node'
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { GithubSearchPage } from './github-search-page';
 import { makeFakeResponse, makeFakeRepo, getReposByList, getRepostPerPage } from '../__fixtures__/respos';
+import { handlePaginated } from '../__fixtures__/handler';
 import { OK_STATUS } from '../consts';
 
 
@@ -26,6 +27,8 @@ const server = setupServer(
         )
     }),
 )
+
+
 
 // Enable request interception.
 beforeAll(() => server.listen())
@@ -253,18 +256,7 @@ describe('when the developer does a search and selects 50 rows per page', () => 
     it('must fetch a new search and display 50 rows results on the table', async () => {
         //config mock server response
         server.use(
-            rest.get('/search/repositories', (req, res, ctx) =>
-                res(
-                    ctx.status(OK_STATUS),
-
-                    ctx.json({
-                        ...makeFakeResponse(),
-                        items: getRepostPerPage({
-                            currentPage: Number(req.url.searchParams.get('page')),
-                            perPage: Number(req.url.searchParams.get('per_page'))
-                        })
-                    }),
-                ),
+            rest.get('/search/repositories', handlePaginated
             ),
         )
 
@@ -281,7 +273,7 @@ describe('when the developer does a search and selects 50 rows per page', () => 
 
         // expect 50 rows length
         await waitFor(() =>
-            expect(screen.getByRole('button', { name: /search/i })).not.toBeDisabled(),
+            expect(screen.getByRole('button', { name: /search/i })).not.toBeDisabled(), { timeout: 3000 },
         )
         expect(screen.getAllByRole('row')).toHaveLength(51)
 

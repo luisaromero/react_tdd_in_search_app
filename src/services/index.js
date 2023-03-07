@@ -4,7 +4,6 @@ const baseUrl =
 export const getRepos = ({ q, rowsPerPage }) =>
     fetch(
         `${baseUrl}/search/repositories?q=${q}&page=0&per_page=${rowsPerPage}`,
-        console.log({ rowsPerPage })
 
 
     )
