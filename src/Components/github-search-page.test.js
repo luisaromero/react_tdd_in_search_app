@@ -76,8 +76,15 @@ describe('when the GithubSearch is mounted', () => {
 describe('when the developer does a search', () => {
     it('The search button should be disabled until the search is done', async () => {
         expect(btnSearch()).not.toBeDisabled()
+
+        fireEvent.change(screen.getByLabelText(/filter by/i), { target: { value: "test" } })
+
+        expect(btnSearch()).not.toBeDisabled()
+
         fireEventSearch()
+
         expect(btnSearch()).toBeDisabled()
+
         await waitFor(() => expect(btnSearch()).not.toBeDisabled())
 
     })
