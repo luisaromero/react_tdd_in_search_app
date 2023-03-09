@@ -3,8 +3,11 @@ import { Content } from './content/index';
 import { getRepos } from '../services';
 
 import {
-    Typography, TextField, Button, Container, Grid, Box
+    Typography, TextField, Button, Container, Grid, Box, TablePagination
 } from '@mui/material'; { }
+import GithubTable from './github-table';
+
+const ROWS_PER_PAGE_DEFAULT = 30
 
 
 export const GithubSearchPage = () => {
@@ -12,7 +15,7 @@ export const GithubSearchPage = () => {
     const [isSearchApplied, setIsSearchApplied] = useState(false);
     const [repostList, setRepostList] = useState([])
     const [searchBy, setSearchBy] = useState('')
-    const [rowsPerPage, setRowsPerPage] = useState(30)
+    const [rowsPerPage, setRowsPerPage] = useState(ROWS_PER_PAGE_DEFAULT)
 
     const didMount = useRef(false)
 
@@ -37,6 +40,10 @@ export const GithubSearchPage = () => {
         handleSearch()
     }, [handleSearch])
 
+
+    const handleChangeRowsPerPage = ({ target: { value } }) => setRowsPerPage(value)
+
+
     return (
         <Container>
             <Box my={2}>
@@ -52,7 +59,21 @@ export const GithubSearchPage = () => {
                 </Grid>
             </Grid>
             <Box my={4}>
-                <Content isSearchApplied={isSearchApplied} repostList={repostList} rowsPerPage={rowsPerPage} setRowsPerPage={setRowsPerPage} />
+                <Content
+                    isSearchApplied={isSearchApplied} repostList={repostList}  >
+                    <>
+                        <GithubTable repostList={repostList} />
+                        <TablePagination
+                            rowsPerPageOptions={[30, 50, 100]}
+                            component="div"
+                            count={1}
+                            rowsPerPage={rowsPerPage}
+                            page={0}
+                            onPageChange={() => { }}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                        />
+                    </>
+                </Content>
             </Box>
 
         </Container >
