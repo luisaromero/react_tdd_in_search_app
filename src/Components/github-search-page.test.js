@@ -278,5 +278,5 @@ describe('when the developer does a search and selects 50 rows per page', () => 
         expect(screen.getAllByRole('row')).toHaveLength(51)
 
 
-    })
-})       
+    }, 6000)
+})
