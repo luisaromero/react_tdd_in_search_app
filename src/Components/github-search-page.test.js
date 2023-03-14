@@ -287,3 +287,8 @@ describe('when the developer does a search and selects 50 rows per page', () => 
 
     }, 6000)
 })
+
+describe.only('when the developer clicks on search and then on next page button', () => {
+    it('must display the next repositories page', async () => {
+    })
+})
