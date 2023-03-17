@@ -8,7 +8,7 @@ export const handlePaginated = (req, res, ctx) =>
         ctx.status(OK_STATUS),
 
         ctx.json({
-            ...makeFakeResponse(),
+            ...makeFakeResponse({ totalCount: 1000 }),
             items: getRepostPerPage({
                 currentPage: Number(req.url.searchParams.get('page')),
                 perPage: Number(req.url.searchParams.get('per_page'))

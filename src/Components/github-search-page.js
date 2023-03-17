@@ -8,7 +8,9 @@ import {
     Typography, TextField, Button, Container, Grid, Box, TablePagination
 } from '@mui/material'; { }
 
-const ROWS_PER_PAGE_DEFAULT = 30
+const ROWS_PER_PAGE_DEFAULT = 30;
+const INITIAL_CURRENT_PAGE = 0;
+const INITIAL_TOTAL_COUNT = 0;
 
 
 export const GithubSearchPage = () => {
@@ -16,7 +18,9 @@ export const GithubSearchPage = () => {
     const [isSearchApplied, setIsSearchApplied] = useState(false);
     const [repostList, setRepostList] = useState([])
     const [rowsPerPage, setRowsPerPage] = useState(ROWS_PER_PAGE_DEFAULT)
-    const [currentPage, setCurrentPage] = useState(0)
+    const [currentPage, setCurrentPage] = useState(INITIAL_CURRENT_PAGE)
+    const [totalCount, setTotalCount] = useState(INITIAL_TOTAL_COUNT)
+
 
     const didMount = useRef(false)
     const searchByInput = useRef(null)
@@ -28,6 +32,7 @@ export const GithubSearchPage = () => {
         // para parsear el reponse del json a un objeto de javascript , retorna una promesa por eso se coloca el await
         const data = await response.json()
         setRepostList(data.items)
+        setTotalCount(data.total_count)
         setIsSearchApplied(true)
         setIsSearching(false)
     }, [rowsPerPage, currentPage])
@@ -69,7 +74,7 @@ export const GithubSearchPage = () => {
                         <TablePagination
                             rowsPerPageOptions={[30, 50, 100]}
                             component="div"
-                            count={1000}
+                            count={totalCount}
                             rowsPerPage={rowsPerPage}
                             page={currentPage}
                             onPageChange={handleChangePage}
