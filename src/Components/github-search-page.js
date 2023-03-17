@@ -16,6 +16,7 @@ export const GithubSearchPage = () => {
     const [isSearchApplied, setIsSearchApplied] = useState(false);
     const [repostList, setRepostList] = useState([])
     const [rowsPerPage, setRowsPerPage] = useState(ROWS_PER_PAGE_DEFAULT)
+    const [currentPage, setCurrentPage] = useState(0)
 
     const didMount = useRef(false)
     const searchByInput = useRef(null)
@@ -23,13 +24,13 @@ export const GithubSearchPage = () => {
     const handleSearch = useCallback(async () => {
 
         setIsSearching(true)
-        const response = await getRepos({ q: searchByInput.current.value, rowsPerPage })
+        const response = await getRepos({ q: searchByInput.current.value, rowsPerPage, currentPage })
         // para parsear el reponse del json a un objeto de javascript , retorna una promesa por eso se coloca el await
         const data = await response.json()
         setRepostList(data.items)
         setIsSearchApplied(true)
         setIsSearching(false)
-    }, [rowsPerPage])
+    }, [rowsPerPage, currentPage])
 
 
     useEffect(() => {
@@ -42,6 +43,8 @@ export const GithubSearchPage = () => {
 
 
     const handleChangeRowsPerPage = ({ target: { value } }) => setRowsPerPage(value)
+
+    const handleChangePage = (event, newPage) => setCurrentPage(newPage)
 
 
     return (
@@ -66,10 +69,10 @@ export const GithubSearchPage = () => {
                         <TablePagination
                             rowsPerPageOptions={[30, 50, 100]}
                             component="div"
-                            count={1}
+                            count={1000}
                             rowsPerPage={rowsPerPage}
-                            page={0}
-                            onPageChange={() => { }}
+                            page={currentPage}
+                            onPageChange={handleChangePage}
                             onRowsPerPageChange={handleChangeRowsPerPage}
                         />
                     </>
