@@ -320,3 +320,49 @@ describe('when the developer clicks on search and then on next page button', () 
 
     })
 })
+
+
+describe('when the developer clicks on search and then on next page button and then previous page button', () => {
+    it('must display the previus repositories page', async () => {
+        //config server handler
+        server.use(
+            rest.get('/search/repositories', handlePaginated
+            ),
+        )
+
+        //click search 
+        fireEventSearch()
+
+        // expect 30 per ,page wwait table
+        expect(await screen.findByRole('table')).toBeInTheDocument()
+
+        //expect first repo name is from page 0
+        expect(await screen.findByRole('cell', { name: /1-0/ })).toBeInTheDocument()
+        // expect next page is not disabled
+        expect(screen.getByRole('button', { name: /next page/i })).not.toBeDisabled()
+        //click next page button
+        fireEvent.click(screen.getByRole('button', { name: /next page/i }))
+        //wait search button is not disabled
+        expect(screen.getByRole('button', { name: /search/i })).toBeDisabled()
+        //expect first repo name is from page 1
+        await waitFor(() =>
+            expect(screen.getByRole('button', { name: /search/i })).not.toBeDisabled(), { timeout: 3000 },
+        )
+
+        expect(await screen.findByRole('cell', { name: /2-0/ })).toBeInTheDocument()
+
+        //click on prevous page
+
+        fireEvent.click(screen.getByRole('button', { name: /previous page/i }))
+        //wait search finish
+
+        await waitFor(() =>
+            expect(screen.getByRole('button', { name: /search/i })).not.toBeDisabled(), { timeout: 3000 },
+        )
+        //expect
+
+        expect(await screen.findByRole('cell', { name: /1-0/ })).toBeInTheDocument()
+
+
+    })
+})
