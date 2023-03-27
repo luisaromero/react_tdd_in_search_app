@@ -10,6 +10,12 @@ export default class ErrorBoundary extends React.Component {
         // Actualiza el estado para que el siguiente renderizado muestre la interfaz de repuesto
         return { hasError: true };
     }
+
+    handleReloadLocation = () =>
+        window.location.reload()
+
+
+
     render() {
         const { children } = this.props;
         const { hasError } = this.state;
@@ -18,7 +24,7 @@ export default class ErrorBoundary extends React.Component {
             return (
                 <>
                     <p>There is an unexpected error</p>
-                    <button type="button">Reload</button>
+                    <button type="button" onClick={this.handleReloadLocation}>Reload</button>
                 </>
             )
         }

@@ -1,5 +1,5 @@
 import React from "react";
-import { screen, render } from "@testing-library/react";
+import { screen, render, fireEvent } from "@testing-library/react";
 import ErrorBoundary from "./error-boundary";
 
 jest.spyOn(console, 'error')
@@ -32,5 +32,14 @@ describe('when the components render throws an error', () => {
 })
 describe('when the users click on reload button', () => {
     it('must reload the app', () => {
+        render(<ErrorBoundary>
+            <ThrowError />
+        </ErrorBoundary>)
+
+        delete window.location
+        window.location = { reload: jest.fn() }
+
+        fireEvent.click(screen.getByRole('button', { name: /reload/i }))
+        expect(window.location.reload).toHaveBeenCalledTimes(1)
     })
 })
