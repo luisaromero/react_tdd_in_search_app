@@ -1,5 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import {
+    Typography, Button
+} from '@mui/material';
 
 export default class ErrorBoundary extends React.Component {
     constructor(props) {
@@ -23,8 +26,8 @@ export default class ErrorBoundary extends React.Component {
         if (hasError) {
             return (
                 <>
-                    <p>There is an unexpected error</p>
-                    <button type="button" onClick={this.handleReloadLocation}>Reload</button>
+                    <Typography variant="h4" >There is an unexpected error</Typography>
+                    <Button variant="contained" color="primary" type="button" onClick={this.handleReloadLocation}>Reload</Button>
                 </>
             )
         }
